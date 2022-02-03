@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(18,9,62);
+  margin: 0;
+  background-image: url('arcade.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+main {
+  width: 650px;
+  margin: 0 auto;
+  background-color: white;
+  opacity: 0.9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h1 {
+  color: rgb(50, 77, 171);
+}
+
+canvas {
+  width: 300;
+  height: 300;
+  position: absolute;
+}
