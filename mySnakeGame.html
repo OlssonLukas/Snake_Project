@@ -5,16 +5,24 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Site: Start</title>
+  <title>Snake Game</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-
-  <canvas>
-
+  <div id="score">0</div>
+  <canvas id="board" width="400" height="500">
   </canvas>
+  <script src="/mySnakeJS.js"></script>
+
+  <button id="start" onclick="reset()" type="button">Start</button>
+  <video hidden id="right_dancer" width="600" height="450" autoplay muted loop>
+    <source src="dancing.mp4" type="video/mp4">
+  </video>
+
+  <video hidden id="left_dancer" width="600" height="450" autoplay muted loop>
+    <source src="dancing.mp4" type="video/mp4">
+  </video>
 </body>
 
 </html>
