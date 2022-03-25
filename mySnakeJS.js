@@ -17,6 +17,15 @@ let snakeColors = [
   '#ee82ee', '#5e345e'
 ]
 
+// breaks for some reason
+// const sqlite3 = require('better-sqlite3');
+// const db = new sqlite3.Database('./score.db', sqlite3.OPEN_READWRITE, (err) => {
+//   if (err) {
+//     console.error(err.message);
+//   }
+//   console.log('Connected to the chinook database.');
+// });
+
 let score = 0;
 
 //<video hidden id="dancing" width="320" height="240" autoplay muted loop>
@@ -61,6 +70,7 @@ function gameStart() {
   if (hasGameEnded()) {
     myMusic.pause();
     gameOverSound.play();
+    openScore();
     return;
   }
 
@@ -78,6 +88,7 @@ function gameStart() {
 }
 
 function reset() {
+  //highScores = getHighScores();
   snake = [
     { x: 200, y: 250 },
     { x: 190, y: 250 },
@@ -92,7 +103,13 @@ function reset() {
     myMusic.play();
   }
   main();
+}
 
+// breaks cause its not connected to DB
+function getHighScores() {
+  allScores = runQuery(res, {},
+    `SELECT * FROM scores`, false);
+  console.log(allScores);
 }
 
 function drawCanvas() {
@@ -166,6 +183,14 @@ function moveSnake() {
   }
 }
 
+function openScore() {
+  document.getElementById("myScore").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myScore").style.display = "none";
+}
+
 function hasGameEnded() {
   for (let i = 4; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
@@ -212,5 +237,24 @@ function changeDirection(event) {
   if (keyPressed === DOWN_KEY && !goingUp) {
     dx = 0;
     dy = 10;
+  }
+
+  function runQuery(res, parameters, sqlForPreparedStatement, onlyOne = false) {
+    let result;
+    try {
+      let stmt = db.prepare(sqlForPreparedStatement);
+
+      let method = sqlForPreparedStatement.trim().toLowerCase().indexOf('select') === 0 ?
+        'all' : 'run';
+      result = stmt[method](parameters);
+    }
+    catch (error) {
+
+      result = { _error: error + '' };
+    }
+    if (onlyOne) { result = result[0]; }
+    result = result || null;
+    res.status(result ? (result._error ? 500 : 200) : 404);
+    res.json(result);
   }
 }

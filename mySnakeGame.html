@@ -16,6 +16,7 @@
   <script src="/mySnakeJS.js"></script>
 
   <button id="start" onclick="reset()" type="button">Start</button>
+
   <video hidden id="right_dancer" width="600" height="450" autoplay muted loop>
     <source src="dancing.mp4" type="video/mp4">
   </video>
@@ -23,6 +24,20 @@
   <video hidden id="left_dancer" width="600" height="450" autoplay muted loop>
     <source src="dancing.mp4" type="video/mp4">
   </video>
+
+  <div class="form-popup" id="myScore">
+    <form action="/action_page.php" class="form-container">
+      <h1>Add Score</h1>
+
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" required>
+
+      <label for="finalScore"><b>Score: </b></label>
+
+      <button type="button" class="btn">Submit</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
 </body>
 
 </html>
